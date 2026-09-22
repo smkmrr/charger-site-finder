@@ -1,0 +1,27 @@
+[project]
+name = "charger-site-finder"
+version = "0.1.0"
+description = "Finds candidate EV charging locations by combining OpenStreetMap POIs with Open Charge Map station data."
+requires-python = ">=3.12"
+dependencies = [
+    "httpx==0.28.1",
+    "pydantic==2.13.5",
+    "tenacity==9.1.4",
+    "python-dotenv==1.2.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff==0.16.8",
+    "pytest==9.1.1",
+]
+
+[project.scripts]
+charger-finder = "charger_finder.cli:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
