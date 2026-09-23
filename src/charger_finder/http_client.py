@@ -15,7 +15,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from charger_finder.config import CACHE_DIR, CACHE_MAX_AGE_DAYS
+from charger_finder.config import CACHE_DIR, CACHE_MAX_AGE_DAYS, FIXTURES_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +36,10 @@ def _cache_path(name: str) -> Path:
 
 def _cache_age_days(path: Path) -> float:
     return (time.time() - path.stat().st_mtime) / 86_400
+
+
+def _fixture_path(name: str) -> Path:
+    return FIXTURES_DIR / f"{name}.json"
 
 
 @retry(
@@ -69,7 +73,18 @@ def fetch_json(
             return json.loads(path.read_text(encoding="utf-8"))
         logger.info("cache stale: %s (%.1f days old), refetching", name, age)
 
-    response = _request(method, url, **kwargs)
+    try:
+        response = _request(method, url, **kwargs)
+    except (httpx.HTTPError, RetryableStatusError) as exc:
+        fixture = _fixture_path(name)
+        if not fixture.exists():
+            raise
+        logger.warning(
+            "could not reach %s (%s) — falling back to the bundled fixture",
+            name,
+            exc,
+        )
+        return json.loads(fixture.read_text(encoding="utf-8"))
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(response.content)

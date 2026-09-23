@@ -1,7 +1,7 @@
 [project]
 name = "charger-site-finder"
 version = "0.1.0"
-description = "Finds candidate EV charging locations by combining OpenStreetMap POIs with Open Charge Map station data."
+description = "Finds candidate locations for new EV charging stations by combining OpenStreetMap points of interest with Turkey's national charging-station registry."
 requires-python = ">=3.12"
 dependencies = [
     "httpx==0.28.1",
