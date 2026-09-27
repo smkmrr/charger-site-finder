@@ -10,10 +10,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "ruff==0.16.8",
-    "pytest==9.1.1",
-]
+dev = ["ruff==0.16.8"]
 
 [project.scripts]
 charger-finder = "charger_finder.cli:main"
