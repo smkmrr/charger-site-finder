@@ -3,9 +3,9 @@
 import logging
 from collections.abc import Sequence
 
-from charger_finder.config import COMPETITOR_POWER_KW, OWN_BRANDS, OWN_BRAND_POWER_KW
-from charger_finder.models import AccessType, Candidate, LocationCard, Station
+from charger_finder.config import COMPETITOR_POWER_KW, OWN_BRAND_POWER_KW, OWN_BRANDS
 from charger_finder.distance import within_radius
+from charger_finder.models import AccessType, Candidate, LocationCard, Station
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +29,7 @@ def _describe_own_brand(stations: Sequence[Station]) -> str:
     """Describe non-blocking own-brand stations, for context on the card."""
     if not stations:
         return ""
-    return "; ".join(
-        f"{s.brand} {s.max_dc_power_kw:.0f}kW" for s in stations
-    )
+    return "; ".join(f"{s.brand} {s.max_dc_power_kw:.0f}kW" for s in stations)
 
 
 def screen(
@@ -68,7 +66,9 @@ def screen(
                 source_id=candidate.source_id,
                 own_brand_note=_describe_own_brand(own),
                 competitor_count=len(competitors),
-                competitor_brands=", ".join(sorted({s.brand or "?" for s in competitors})),
+                competitor_brands=", ".join(
+                    sorted({s.brand or "?" for s in competitors})
+                ),
                 competitor_max_kw=competitor_max,
                 priority="HIGH" if not competitors else "MEDIUM",
                 next_step=NEXT_STEP,

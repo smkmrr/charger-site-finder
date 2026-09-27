@@ -2,15 +2,12 @@
 
 from collections.abc import Iterable
 from math import asin, cos, radians, sin, sqrt
-from typing import TypeVar
 
 from charger_finder.config import BoundingBox
 from charger_finder.models import GeoRecord
 
 #: Mean Earth radius (IUGG), in kilometres.
 EARTH_RADIUS_KM = 6371.0088
-
-T = TypeVar("T", bound=GeoRecord)
 
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -31,7 +28,9 @@ def in_bounding_box(record: GeoRecord, box: BoundingBox) -> bool:
     )
 
 
-def within_radius(centre: GeoRecord, records: Iterable[T], radius_km: float) -> list[T]:
+def within_radius[T: GeoRecord](
+    centre: GeoRecord, records: Iterable[T], radius_km: float
+) -> list[T]:
     """Return the records lying at most `radius_km` from `centre`."""
     return [
         record

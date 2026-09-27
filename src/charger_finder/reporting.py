@@ -3,7 +3,7 @@
 import csv
 import logging
 from collections.abc import Sequence
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from pydantic import BaseModel
@@ -33,7 +33,7 @@ REJECTION_FIELDS = ["source", "identifier", "reason"]
 
 def _timestamp() -> str:
     """UTC timestamp for output filenames, sortable as text."""
-    return datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+    return datetime.now(UTC).strftime("%Y%m%d-%H%M%S")
 
 
 def _write_csv(path: Path, fieldnames: list[str], rows: Sequence[BaseModel]) -> None:

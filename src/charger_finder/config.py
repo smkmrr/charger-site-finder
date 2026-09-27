@@ -1,17 +1,12 @@
-"""Configuration: environment, search area, business thresholds and paths."""
+"""Configuration: search area, business thresholds and paths."""
 
-import os
 from dataclasses import dataclass
 from pathlib import Path
-
-from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CACHE_DIR = PROJECT_ROOT / "data" / "cache"
 FIXTURES_DIR = PROJECT_ROOT / "data" / "fixtures"
 OUTPUT_DIR = PROJECT_ROOT / "data" / "output"
-
-load_dotenv(PROJECT_ROOT / ".env")
 
 
 @dataclass(frozen=True)
@@ -49,13 +44,3 @@ CACHE_MAX_AGE_DAYS = 7
 
 #: Candidate types we look for. overpass.py maps these to OSM tags.
 POI_CATEGORIES = ("mall", "hospital", "clinic", "business_centre")
-
-
-def get_ocm_api_key() -> str:
-    """Return the Open Charge Map API key, or fail with a clear message."""
-    key = os.getenv("OCM_API_KEY")
-    if not key:
-        raise RuntimeError(
-            "OCM_API_KEY is not set. Copy .env.example to .env and add your key."
-        )
-    return key

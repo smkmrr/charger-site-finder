@@ -60,6 +60,8 @@ def load_stations() -> tuple[list[Station], list[Rejection]]:
         len(rejected),
     )
     for rejection in rejected[:5]:
-        logger.warning("%s rejected %s — %s", SOURCE, rejection.identifier, rejection.reason)
+        logger.warning(
+            "%s rejected %s — %s", SOURCE, rejection.identifier, rejection.reason
+        )
 
     return stations, rejected

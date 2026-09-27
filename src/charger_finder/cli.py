@@ -57,7 +57,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         stations, station_rejections = load_stations()
         candidates, candidate_rejections = load_candidates(args.area, box)
-    except Exception as exc:
+    # This is the program's outer boundary: any failure from the sources is
+    # turned into a readable message and exit code 1 instead of a traceback.
+    except Exception as exc:  # noqa: BLE001
         logger.error("could not load the sources: %s", exc)
         return 1
 
