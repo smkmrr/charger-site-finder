@@ -5,6 +5,9 @@ combining two independent public data sources: places where people already spend
 time (OpenStreetMap) and the charging stations that already exist (Turkey's
 national registry, EPDK).
 
+The written report for the assignment, including the self-reflection, is in
+[`report.md`](report.md).
+
 ## What it does
 
 1. Fetches candidate places from the Overpass API (OpenStreetMap) inside the
