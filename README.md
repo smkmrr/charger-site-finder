@@ -6,7 +6,8 @@ time (OpenStreetMap) and the charging stations that already exist (Turkey's
 national registry, EPDK).
 
 The written report for the assignment, including the self-reflection, is in
-[`report.md`](report.md).
+[`report.md`](report.md). The slides from the presentation are in
+[`presentation.pdf`](presentation.pdf).
 
 ## What it does
 
