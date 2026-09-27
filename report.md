@@ -173,7 +173,8 @@ They are not lost: they are written out with their reason.
 
 ## Results
 
-A full run over the Ankara bounding box:
+A full run over the Ankara bounding box, against responses fetched on
+22 September 2026:
 
 ```
 stations from EPDK      : 16885
@@ -197,6 +198,11 @@ produces no card, and no rejection either.
 The output is two timestamped CSV files, written with a UTF-8 BOM so that Turkish
 characters survive being opened in Excel. Example output from a real run is
 committed in `data/examples/`.
+
+The register moves. A fresh run five days later, on 27 September, returned 16 922
+stations instead of 16 885 and produced 364 cards instead of 363 — new stations
+had been licensed in the meantime. This is exactly why output files carry a
+timestamp.
 
 Two runs show the failure paths working, both taken from real logs:
 
